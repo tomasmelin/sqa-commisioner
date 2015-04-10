@@ -24,11 +24,11 @@ if (version_compare(PHP_VERSION, '5.3.7', '<')) {
 require_once("config/db.php");
 
 // load the registration class
-require_once("classes/Registration.php");
+require_once("classes/Overview.php");
 
 // create the registration object. when this object is created, it will do all registration stuff automatically
 // so this single line handles the entire registration process.
-$registration = new Registration();
+$overview = new Overview();
 
 // show the register view (with the registration form, and messages/errors)
-include("views/register.php");
+include("views/overview.php");

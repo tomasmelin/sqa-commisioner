@@ -36,6 +36,8 @@ if ($login->isUserLoggedIn() == true) {
     // for demonstration purposes, we simply show the "you are logged in" view.
     include("views/logged_in.php");
 
+    // TODO: Change the view to Overview-view here
+
 } else {
     // the user is not logged in. you can do whatever you want here.
     // for demonstration purposes, we simply show the "you are not logged in" view.
