@@ -1,14 +1,9 @@
 <?php
-
 /**
- * A simple, clean and secure PHP Login Script / MINIMAL VERSION
- * For more versions (one-file, advanced, framework-like) visit http://www.php-login.net
- *
- * Uses PHP SESSIONS, modern password-hashing and salting and gives the basic functions a proper login system needs.
- *
- * @author Panique
- * @link https://github.com/panique/php-login-minimal/
- * @license http://opensource.org/licenses/MIT MIT License
+ * Created by PhpStorm.
+ * User: Tomas
+ * Date: 2015-04-14
+ * Time: 19:12
  */
 
 // checking for minimum PHP version
@@ -24,11 +19,11 @@ if (version_compare(PHP_VERSION, '5.3.7', '<')) {
 require_once("config/db.php");
 
 // load the Overview class
-require_once("classes/Overview.php");
+require_once("classes/SaleDetail.php");
 
-// create the Overview object. when this object is created, it will do all Overview stuff automatically
-// so this single line handles the entire Overview process.
-$overview = new Overview();
+// create the SalesDetail object. when this object is created, it will do all SalesDetail stuff automatically
+// so this single line handles the entire SalesDetail process.
+$saledetail = new SaleDetail();
 
 // show the register view (with the registration form, and messages/errors)
-include("views/overview.php");
+include("views/sale_detail.php");

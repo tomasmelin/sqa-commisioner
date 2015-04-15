@@ -1,12 +1,13 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: Tomas
  * Date: 2015-04-08
  * Time: 08:38
  */
-
-class Overview {
+class Overview
+{
 
     /**
      * @var array Collection of error messages
@@ -28,34 +29,25 @@ class Overview {
         // create/read session, absolutely necessary
         $this->db_connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME); // TODO
         session_start();
-
-
     }
 
-    public function getSale() {
+    public function getSale()
+    {
         if (!$this->db_connection->set_charset("utf8")) {
             $this->errors[] = $this->db_connection->error;
         }
-
         // if no connection errors (= working database connection)
         if (!$this->db_connection->connect_errno) {
-
             // database query, getting all the info of the selected user (allows login via email address in the
             // username field)
-           // $sql = "SELECT * FROM `sale` WHERE 1"; // Old query.
             $sql = "SELECT *
                 FROM `city`
                 INNER JOIN `customer`
                 ON `city`.`ID_City`=customer.`ID_City`
                 INNER JOIN `sale`
-                ON `customer`.`ID_Customer`=`sale`.`ID_Customer`;"; // Old query.
+                ON `customer`.`ID_Customer`=`sale`.`ID_Customer`;";
             $sale = $this->db_connection->query($sql);
-
-
-
             return $sale;
-
-
         } else {
             $this->errors[] = "Database connection problem.";
         }
