@@ -54,4 +54,8 @@ class SaleDetail {
         }
     }
 
+    public function getNewSaleData() {
+//        if (empty($_POST[]))
+    }
+
 }

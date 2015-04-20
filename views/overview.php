@@ -28,7 +28,8 @@ Try to close this browser tab and open it again. Still logged in! ;)
         <th>Date</th>
     </tr>
     <?php
-    $sales = $overview->getSale();
+    echo $_SESSION['user_id'];
+    $sales = $overview->getSale($_SESSION['user_id']);
     while ($row = $sales->fetch_assoc()) { // $row['ID_Sale']
         echo "<tr>";
         echo "<th>" . $row['ID_Sale'] . "</th>";

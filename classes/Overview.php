@@ -31,7 +31,7 @@ class Overview
         session_start();
     }
 
-    public function getSale()
+    public function getSale($userID)
     {
         if (!$this->db_connection->set_charset("utf8")) {
             $this->errors[] = $this->db_connection->error;
@@ -40,12 +40,14 @@ class Overview
         if (!$this->db_connection->connect_errno) {
             // database query, getting all the info of the selected user (allows login via email address in the
             // username field)
+            echo var_dump($userID);
             $sql = "SELECT *
-                FROM `city`
+                FROM `city`,`users`
                 INNER JOIN `customer`
-                ON `city`.`ID_City`=customer.`ID_City`
+                ON `ID_City`= `ID_City`
                 INNER JOIN `sale`
-                ON `customer`.`ID_Customer`=`sale`.`ID_Customer`;";
+                ON `customer`.`ID_Customer`=`sale`.`ID_Customer`
+                WHERE `users`.`user_id` = $userID";
             $sale = $this->db_connection->query($sql);
             return $sale;
         } else {
