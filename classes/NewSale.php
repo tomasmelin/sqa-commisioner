@@ -62,14 +62,18 @@ class NewSale {
                CURDATE());";
             $new_sale = $this->db_connection->query($sql_new_sale);
 
-            $sql_new_sale_details_1 = "INSERT INTO `sale_detail`(`ID_Sale`,
-                          `ID_Product`,
-                          `Product_Quantity`)
+            $sql_new_sale_details = "INSERT INTO `sale_detail`(`ID_Sale`,`ID_Product`,`Product_Quantity`)
                 VALUES (" . $this->db_connection->insert_id . "," . 1 . "," . $_POST['quantity_1'] . "),
                 (" . $this->db_connection->insert_id . "," . 2 . "," . $_POST['quantity_2'] . "),
                 (" . $this->db_connection->insert_id . "," . 3 . "," . $_POST['quantity_3'] . ");";
 
-            $new_sale_details = $this->db_connection->query($sql_new_sale_details_1); // MULTI QUERY
+            $new_sale_details = $this->db_connection->query($sql_new_sale_details); // MULTI QUERY
+
+//            if ($sql_new_sale_details) {
+//                $this->messages[] = "Your sale has been inserted successfully.";
+//            } else {
+//                $this->errors[] = "Sorry, your sale has not been inserted to the system.";
+//            }
 
             echo var_dump($sql_new_sale);
             echo var_dump($new_sale);
