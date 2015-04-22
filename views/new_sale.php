@@ -15,45 +15,37 @@ Hey, <?php echo $_SESSION['user_name']; ?>. Please fill in information to add a 
             USER:  <?php echo $_SESSION['user_name'] ?>
             MONTH: <?php
             date_default_timezone_set('Asia/Harbin');
-            echo date('F', time());;
+            echo date('F', time());
             ?>
             <?php //echo $_GET['id'];?>
         </th>
     </tr>
     <tr>
-        <td>
-            <form method="post" action="new_sale.php" name="customer_id">
-                <label for="customer">Customer (only positive integers): </label>
-                <input id="customer_id" class="customer_id_input" type="number" name="customer_id" required />
-            </form>
-        </td>
-    </tr>
-    <tr>
         <th>Product ID</th>
         <th>Product Name</th>
-        <th>Quantity (only positive integers)</th>
         <th>Unit Price</th>
+        <th>Quantity (only positive integers)</th>
     </tr>
 
-    <!--  INPUTS  -->
-<!--    <form method="post" action="new_sale.php" name="newsale">-->
-<!--        <!-- the user name input field uses a HTML5 pattern check -->-->
-<!--        <label for="Quantity">(only integers)</label>-->
-<!--        <input numberofitems="quantity_input" class="qty_input" type="number" name="quantity" required />-->
-<!--    </form>-->
-
     <?php
+    echo '<form method="post" action="new_sale.php" method="GET" name="newsale">
+            <tr><label for="customer_id">CustomerID: </label>
+            <input type="number" name="customer_id" required />
+        </tr>';
     $products = $newsale->getProducts();
+    $nr = 1;
     while ($row = $products->fetch_assoc()) {
-        echo "<tr> <th>" . $row['ID_Product'] . "</th><th>" . $row['Product_Name'] . "</th>";
-        echo '<th> <form method="post" action="new_sale.php" name="newsale">
-            <label for="Quantity"></label>
-            <input numberofitems="quantity_input" class="qty_input" type="number" name="quantity" required />
-            </form> </th>';
-        echo "<th>" . $row['Product_Price'] . "</th>";
-        echo "</tr>";
+        echo    "<tr>
+                    <th>" . $row['ID_Product'] . "</th>
+                    <th>" . $row['Product_Name'] . "</th>
+                    <th>" . $row['Product_Price'] . "</th>
+                    <th><input type=\"number\" name=\"quantity_" .
+                        $nr . "\" required min=\"0\" max=\"91\" step=\"1\" /></th>
+                </tr>";
+        $nr++;
     }
     ?>
+
 </table>
 <table>
     <tr>
@@ -61,7 +53,8 @@ Hey, <?php echo $_SESSION['user_name']; ?>. Please fill in information to add a 
             <a href='overview.php'>Back</a>
         </td>
         <td>
-            <a href='overview.php?create_new_sale'>Add Products</a>
+            <input type='submit' name='insert_data' value='Submit' />
+            </form>
         </td>
     </tr>
 </table>
