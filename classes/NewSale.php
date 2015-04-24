@@ -67,7 +67,7 @@ class NewSale {
                 (" . $this->db_connection->insert_id . "," . 2 . "," . $_POST['quantity_2'] . "),
                 (" . $this->db_connection->insert_id . "," . 3 . "," . $_POST['quantity_3'] . ");";
 
-            $new_sale_details = $this->db_connection->query($sql_new_sale_details); // MULTI QUERY
+            $new_sale_details = $this->db_connection->query($sql_new_sale_details);
 
 //            if ($sql_new_sale_details) {
 //                $this->messages[] = "Your sale has been inserted successfully.";
