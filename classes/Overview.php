@@ -41,13 +41,27 @@ class Overview
             // database query, getting all the info of the selected user (allows login via email address in the
             // username field)
             echo var_dump($userID);
-            $sql = "SELECT *
-                FROM `city`,`users`
-                INNER JOIN `customer`
-                ON `ID_City`= `ID_City`
-                INNER JOIN `sale`
-                ON `customer`.`ID_Customer`=`sale`.`ID_Customer`
-                WHERE `users`.`user_id` = $userID";
+
+            $sql = "SELECT `sale`.`ID_Sale`,
+                    `sale`.`Sale_Total_Price`,
+                    `sale`.`Sale_Date`,
+                    `sale`.`ID_Customer`,
+                    `City_Name`,
+                    `customer`.`Customer_Name`
+                FROM `sale`,`users`, `city`, `customer`
+                WHERE `users`.`user_id` = " . $userID . "
+                    AND `City_Name` IN (
+                        SELECT `City_Name`
+                        FROM `city`
+                        WHERE `ID_City` IN (
+                            SELECT `ID_City`
+                            FROM `customer`
+                            WHERE `sale`.`ID_Customer` = `customer`.`ID_City`))
+                    AND `Customer_Name` IN (
+                        SELECT `Customer_Name`
+                        FROM `customer`
+                        WHERE `sale`.`ID_Customer` = `customer`.`ID_Customer`)
+                        ORDER BY `sale`.`ID_Sale` ASC;";
             $sale = $this->db_connection->query($sql);
             return $sale;
         } else {

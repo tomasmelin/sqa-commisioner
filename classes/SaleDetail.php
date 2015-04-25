@@ -54,6 +54,31 @@ class SaleDetail {
         }
     }
 
+    public function getSaleCity($saleDetailID)
+    {
+        if (!$this->db_connection->set_charset("utf8")) {
+            $this->errors[] = $this->db_connection->error;
+        }
+        // if no connection errors (= working database connection)
+        if (!$this->db_connection->connect_errno) {
+
+            $sql = "SELECT `City_Name`
+                FROM `sale`, `city`
+                WHERE `ID_Sale` = $saleDetailID
+                AND `City_Name` IN (
+                    SELECT `City_Name`
+                    FROM `city`
+                    WHERE `ID_City` IN (
+                        SELECT `ID_City`
+                        FROM `customer`
+                        WHERE `sale`.`ID_Customer` = `customer`.`ID_City`));";
+            $saleCity = $this->db_connection->query($sql);
+            return $saleCity;
+        } else {
+            $this->errors[] = "Database connection problem.";
+        }
+    }
+
     public function getNewSaleData() {
 //        if (empty($_POST[]))
     }

@@ -21,6 +21,12 @@ Hey, <?php echo $_SESSION['user_name']; ?>. You are logged in.
                 echo date('F', time());;
             ?>
             SALE ID: <?php echo $_GET['id'];?>
+            CITY: <?php
+            $saleCity = $saledetail->getSaleCity($_GET['id']);
+            while ($row = $saleCity->fetch_assoc()) {
+                echo $row['City_Name'];
+            }
+            ?>
         </th>
     </tr>
     <tr>
@@ -31,8 +37,8 @@ Hey, <?php echo $_SESSION['user_name']; ?>. You are logged in.
         <th>Total Price</th>§
     </tr>
     <?php
-    $sale = $saledetail->getSaleDetails($_GET['id']);
-    while ($row = $sale->fetch_assoc()) {
+    $saleCity = $saledetail->getSaleDetails($_GET['id']);
+    while ($row = $saleCity->fetch_assoc()) {
         echo "<tr>";
             echo "<th>" . $row['ID_Product'] . "</th>";
             echo "<th>" . $row['Product_Name'] . "</th>";
