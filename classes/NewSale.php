@@ -54,12 +54,35 @@ class NewSale {
             }
             date_default_timezone_set('Asia/Harbin');
             $todays_date = date('Y-m-d', time());
+            $amount_total_sold = 45 * $_POST['quantity_1'] + 30 * $_POST['quantity_2'] + 25 * $_POST['quantity_3'];
             $sql_new_sale = "INSERT INTO `sale`(`user_id`,
                             `ID_Customer`,
-                            `Sale_Date`)
+                            `Sale_Date`,
+                            `Sale_Total_Price`)
               VALUES (" . $_SESSION['user_id'] . ",
               " . $_POST['customer_id'] . ",
-               CURDATE());";
+               CURDATE()," . $amount_total_sold . ");";
+
+            echo var_dump($amount_total_sold);
+
+            // " . 45 * $_POST['quantity_1'] + 30 * $_POST['quantity_2'] + 25 * $_POST['quantity_3'] . "
+
+//            $sql_new_sale ="INSERT INTO `sale`(`user_id`,
+//                            `ID_Customer`,
+//                            `Sale_Date`)
+//              VALUES (" . $_SESSION['user_id'] . ",
+//              " . $_POST['customer_id'] . ",
+//               CURDATE());";
+
+            // TODO: new query for new insert
+//                "INSERT INTO `sale`(`user_id`,
+//                            `ID_Customer`,
+//                            `Sale_Date`)
+//              VALUES (" . $_SESSION['user_id'] . ",
+//              " . $_POST['customer_id'] . ",
+//               CURDATE());";
+
+
             $new_sale = $this->db_connection->query($sql_new_sale);
 
             $sql_new_sale_details = "INSERT INTO `sale_detail`(`ID_Sale`,`ID_Product`,`Product_Quantity`)
