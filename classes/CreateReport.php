@@ -28,16 +28,12 @@ class CreateReport {
         // create/read session, absolutely necessary
         $this->db_connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
         session_start();
-
-//        if (isset($_POST["insert_data"])) {
-//            $this->inputNewSale();
-//        }
     }
 
     /**
      *
      */
-    public function inputNewSale()
+    public function getTotalSales()
     {
         if (!$this->db_connection->set_charset("utf8")) {
             $this->errors[] = $this->db_connection->error;
@@ -50,7 +46,7 @@ class CreateReport {
 
 
 
-            $new_sale = $this->db_connection->query($sql_new_sale);
+//            $new_sale = $this->db_connection->query($sql_new_sale);
 
         } else {
             $this->errors[] = "Database connection problem.";
@@ -69,7 +65,7 @@ class CreateReport {
         if (!$this->db_connection->connect_errno) {
             // database query, getting all the info of the selected user (allows login via email address in the
             // username field)
-            $sql = "SELECT ID_Product, Product_Name, Product_Price
+            $sql = "SELECT Product_Name
                 FROM `product`
                 WHERE 1;";
             $productsinfo = $this->db_connection->query($sql);
