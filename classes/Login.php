@@ -71,7 +71,7 @@ class Login
                         WHERE user_name = '" . $user_name . "' OR user_email = '" . $user_name . "';";
                 $result_of_login_check = $this->db_connection->query($sql);
 
-                var_dump($result_of_login_check);
+//                var_dump($result_of_login_check); TODO: Remove.
                 // if this user exists
                 if ($result_of_login_check->num_rows == 1) {
 
@@ -81,7 +81,7 @@ class Login
                     // using PHP 5.5's password_verify() function to check if the provided password fits
                     // the hash of that user's password
                     if (password_verify($_POST['user_password'], $result_row->user_password_hash)) {
-                    var_dump($result_row);
+//                    var_dump($result_row); TODO: Remove.
                         // write user data into PHP SESSION (a file on your server)
                         $_SESSION['user_name'] = $result_row->user_name;
                         $_SESSION['user_email'] = $result_row->user_email;
@@ -109,8 +109,8 @@ class Login
         // delete the session of the user
         $_SESSION = array();
         session_destroy();
-        // return a little feeedback message
-        $this->messages[] = "You have been logged out.";
+        // return a little feedback message
+//        $this->messages[] = "You have been logged out.";
 
     }
 

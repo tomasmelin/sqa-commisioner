@@ -27,7 +27,7 @@ class Overview
     public function __construct()
     {
         // create/read session, absolutely necessary
-        $this->db_connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME); // TODO
+        $this->db_connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
         session_start();
     }
 
@@ -40,8 +40,6 @@ class Overview
         if (!$this->db_connection->connect_errno) {
             // database query, getting all the info of the selected user (allows login via email address in the
             // username field)
-            echo var_dump($userID);
-
             $sql = "SELECT `sale`.`ID_Sale`,
                     `sale`.`Sale_Total_Price`,
                     `sale`.`Sale_Date`,
@@ -50,6 +48,7 @@ class Overview
                     `customer`.`Customer_Name`
                 FROM `sale`,`users`, `city`, `customer`
                 WHERE `users`.`user_id` = " . $userID . "
+                    AND `sale`.`user_id` = " . $userID . "
                     AND `City_Name` IN (
                         SELECT `City_Name`
                         FROM `city`

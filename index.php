@@ -36,7 +36,7 @@ if ($login->isUserLoggedIn() == true) {
     // for demonstration purposes, we simply show the "you are logged in" view
 //    include("views/logged_in.php");
     //include("views/overview.php");
-    // TODO: Change the view to Overview-view here
+    // Change the view to Overview-view.
     header("Location: overview.php");
 
 } else {

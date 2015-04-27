@@ -30,9 +30,8 @@ class NewSale {
         session_start();
 
         if (isset($_POST["insert_data"])) {
-            echo "entered new sale insert";
             $this->inputNewSale();
-            //header("Location: overview.php"); TODO: Uncomment.
+            header("Location: overview.php");
         }
     }
 
@@ -42,7 +41,6 @@ class NewSale {
      */
     public function inputNewSale() // PARAMETER? $saleDetailID
     {
-        echo "nihao, entered new sale method";
         if (!$this->db_connection->set_charset("utf8")) {
             $this->errors[] = $this->db_connection->error;
         }
@@ -63,7 +61,6 @@ class NewSale {
               " . $_POST['customer_id'] . ",
                CURDATE()," . $amount_total_sold . ");";
 
-            echo var_dump($amount_total_sold);
 
             // " . 45 * $_POST['quantity_1'] + 30 * $_POST['quantity_2'] + 25 * $_POST['quantity_3'] . "
 
@@ -98,9 +95,6 @@ class NewSale {
 //                $this->errors[] = "Sorry, your sale has not been inserted to the system.";
 //            }
 
-            echo var_dump($sql_new_sale);
-            echo var_dump($new_sale);
-            echo "SALE WAS SUCCESSFUL";
         } else {
             $this->errors[] = "Database connection problem.";
         }
