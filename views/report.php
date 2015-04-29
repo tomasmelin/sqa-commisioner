@@ -71,27 +71,58 @@
             <tr>
                 <th>Product</th>
                 <th>Quantity Sold</th>
-                <th>Total Sales</th>
-                <th>Commission</th>
             </tr>
+            <?php
+            $sales = $report->getProdOneSales($_SESSION['user_id']);
+            while ($row = $sales->fetch_assoc()) {
+                $product_one_quantity = $row['quantity'];
+            }
+            $sales = $report->getProdTwoSales($_SESSION['user_id']);
+            while ($row = $sales->fetch_assoc()) {
+                $product_two_quantity = $row['quantity'];
+            }
+            $sales = $report->getProdThreeSales($_SESSION['user_id']);
+            while ($row = $sales->fetch_assoc()) {
+                $product_three_quantity = $row['quantity'];
+            }
 
-
-
-<!--            --><?php
-//            $sales = $overview->getSale($_SESSION['user_id']);
-//            while ($row = $sales->fetch_assoc()) { // $row['ID_Sale']
-//                echo "<tr>";
-//                echo "<th>" . $row['ID_Sale'] . "</th>";
-//                echo "<th>" . $row['Customer_Name'] . "</th>";
-//                echo "<th>" . $row['City_Name'] . "</th>";
-//                echo "<th>" . $row['Sale_Total_Price'] . "</th>";
-//                echo "<th>" . $row['Sale_Date'] . "</th>";
-//                echo "<th><a href='sale_detail.php?id= " . $row['ID_Sale'] . "'>Details</a></th>";
-//                echo "</tr>";
+//            $products = $report->getProducts();
+//            while ($row = $products->fetch_assoc()) {
+//                echo
+//                    "<tr>
+//                        <td>" . $row['Product_Name'] . "</td>
+//                        <td>" . $product_one_quantity . "</td>
+//                        <td>" . $product_two_quantity . "</td>
+//                        <td>" . $product_three_quantity . "</td>
+//                    </tr>";
 //            }
 //            ?>
+            <tr>
+                <td>Locks</td>
+                <td> <?php echo $product_one_quantity ?>  </td>
+            </tr>
+            <tr>
+                <td>Stocks</td>
+                <td> <?php echo $product_two_quantity ?>  </td>
+            </tr>
+            <tr>
+                <td>Barrels</td>
+                <td> <?php echo $product_three_quantity ?>  </td>
+            </tr>
         </table>
-
+        <p class="lead">
+            Total Sale = <?php
+            echo $total = $product_one_quantity * 45 +
+            $product_two_quantity * 30 +
+            $product_three_quantity * 25;
+            ?> $
+        </p>
+        <p class="lead">
+            Commission = <?php
+                echo $getCommission = $report->calcCommission($product_one_quantity,
+                    $product_two_quantity, $product_three_quantity);
+            ?> $
+        </p>
     </div>
 </div>
 <!--

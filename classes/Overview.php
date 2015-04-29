@@ -49,6 +49,7 @@ class Overview
                 FROM `sale`,`users`, `city`, `customer`
                 WHERE `users`.`user_id` = " . $userID . "
                     AND `sale`.`user_id` = " . $userID . "
+                    AND MONTH(`Sale_Date`) = MONTH(NOW())
                     AND `City_Name` IN (
                         SELECT `City_Name`
                         FROM `city`

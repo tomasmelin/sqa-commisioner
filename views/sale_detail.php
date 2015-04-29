@@ -62,7 +62,6 @@
                     date_default_timezone_set('Asia/Harbin');
                     echo date('F', time());;
                     ?>
-<!--                    SALE ID: --><?php //echo $_GET['id'];?>
                     CITY: <?php
                     $saleCity = $saledetail->getSaleCity($_GET['id']);
                     while ($row = $saleCity->fetch_assoc()) {
