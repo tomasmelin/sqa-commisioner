@@ -89,7 +89,7 @@
                         <th>" . $row['Product_Price'] . "</th>
                         <th>
                             <input type=\"number\" class=\"form-control\" name=\"quantity_" .
-                        $nr . "\" required min=\"0\" max=\"91\" step=\"1\"  />
+                        $nr . "\" required min=\"0\" max=\"90\" step=\"1\"  />
                         </th>
                     </tr>";
                     $nr++;

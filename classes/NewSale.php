@@ -28,10 +28,13 @@ class NewSale {
         // create/read session, absolutely necessary
         $this->db_connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
         session_start();
+//        $validSale = true;
 
         if (isset($_POST["insert_data"])) {
             $this->inputNewSale();
-            header("Location: overview.php");
+            if (!($this->checkIfInvalidSale($_SESSION['user_id']))) {
+                header("Location: overview.php");
+            }
         }
     }
 
@@ -47,7 +50,8 @@ class NewSale {
         // if no connection errors (= working database connection)
         if (!$this->db_connection->connect_errno) {
             // database query, getting all the info of the selected user
-            if ($this->checkIfInvalidSale()) {
+            if ($this->checkIfInvalidSale($_SESSION['user_id'])) {
+                echo "You have inserted invalid data, please try again.";
                 return;
             }
             date_default_timezone_set('Asia/Harbin');
@@ -60,25 +64,6 @@ class NewSale {
               VALUES (" . $_SESSION['user_id'] . ",
               " . $_POST['customer_id'] . ",
                CURDATE()," . $amount_total_sold . ");";
-
-
-            // " . 45 * $_POST['quantity_1'] + 30 * $_POST['quantity_2'] + 25 * $_POST['quantity_3'] . "
-
-//            $sql_new_sale ="INSERT INTO `sale`(`user_id`,
-//                            `ID_Customer`,
-//                            `Sale_Date`)
-//              VALUES (" . $_SESSION['user_id'] . ",
-//              " . $_POST['customer_id'] . ",
-//               CURDATE());";
-
-            // TODO: new query for new insert
-//                "INSERT INTO `sale`(`user_id`,
-//                            `ID_Customer`,
-//                            `Sale_Date`)
-//              VALUES (" . $_SESSION['user_id'] . ",
-//              " . $_POST['customer_id'] . ",
-//               CURDATE());";
-
 
             $new_sale = $this->db_connection->query($sql_new_sale);
 
@@ -100,10 +85,7 @@ class NewSale {
         }
     }
 
-    /**
-     * GET THE PRODUCT IDS, PRODUCT NAMES, UNIT PRICES. (AND PREPARE THE TOTAL PRICE)
-     */
-    public function checkIfInvalidSale()
+    public function checkIfInvalidSale($userID)
     {
         if (!$this->db_connection->set_charset("utf8")) {
             $this->errors[] = $this->db_connection->error;
@@ -117,27 +99,28 @@ class NewSale {
                 FROM `sale_detail`
                 INNER JOIN `sale`
                 ON `sale_detail`.`ID_Sale` = `sale`.`ID_Sale`
-                WHERE month(Sale_Date) = $currentMonth;";
+                WHERE month(Sale_Date) = $currentMonth
+                AND `sale`.`user_id` = " . $userID . ";";
             $productsinfo = $this->db_connection->query($productSQL);
             while ($row = $productsinfo->fetch_assoc()) {
                 switch ($row['ID_Product']) {
                     case 1:
                         if ($row['Product_Quantity'] + $_POST['quantity_1'] > 70) {
-                            echo var_dump($_POST['Quantity']);
+//                            echo var_dump($_POST['Quantity']);
                             return true;
                         }
                         echo "sale ok_1";
                         break;
                     case 2:
                         if ($row['Product_Quantity'] + $_POST['quantity_2'] > 80) {
-                            echo var_dump($_POST['Quantity']);
+//                            echo var_dump($_POST['Quantity']);
                             return true;
                         }
                         echo "sale ok_2";
                         break;
                     case 3:
                         if ($row['Product_Quantity'] + $_POST['quantity_3'] > 90) {
-                            echo var_dump($_POST['Quantity']);
+//                            echo var_dump($_POST['Quantity']);
                             return true;
                         }
                         echo "sale ok_3";

@@ -123,6 +123,13 @@
                     $product_two_quantity, $product_three_quantity);
             ?> $
         </p>
+        <?php
+        if ($product_one_quantity = $product_two_quantity = $product_three_quantity = 0) {
+            echo "<p class=\"lead\">
+                Warning: you have not sold anything this month. You are required to sell at least one of each product each month.
+            </p> ";
+        }
+        ?>
     </div>
 </div>
 <!--
